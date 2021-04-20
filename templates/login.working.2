@@ -1,0 +1,134 @@
+{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<link rel="stylesheet" type="text/css" href="http://74.207.226.211:80/fanstatic/bootstrap/css/bootstrap.css"/>
+<link rel="stylesheet" type="text/css" href="http://74.207.226.211:80/fanstatic/bootstrap-datepicker/css/datepicker.css"/>
+<script type="text/javascript" src="http://74.207.226.211:80/fanstatic/jquery/jquery.js"></script>
+<script type="text/javascript" src="http://74.207.226.211:80/fanstatic/bootstrap/js/bootstrap.js"></script>
+<script type="text/javascript" src="http://74.207.226.211:80/fanstatic/bootstrap-datepicker/js/bootstrap-datepicker.js"></script>
+<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+<link rel="stylesheet" href="/resources/demos/style.css">
+<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<!--<script type="text/javascript">
+  $( function() {
+    var availableTags = [
+      "ActionScript",
+      "AppleScript",
+      "Asp",
+      "BASIC",
+      "C",
+      "C++",
+      "Clojure",
+      "COBOL",
+      "ColdFusion",
+      "Erlang",
+      "Fortran",
+      "Groovy",
+      "Haskell",
+      "Java",
+      "JavaScript",
+      "Lisp",
+      "Perl",
+      "PHP",
+      "Python",
+      "Ruby",
+      "Scala",
+      "Scheme"
+    ];
+    $( "#tags" ).autocomplete({
+      source: availableTags
+    });
+  } );
+</script> -->
+<script type="text/javascript">
+$( function () {
+    var mytags = {{ lines|safe }}
+    $( "#tags" ).autocomplete({
+        source: mytags,
+        minLength: 2,
+    });
+});
+</script>
+<script type="text/javascript">
+$(function () {
+    $('#datePicker').datepicker();
+    $('#datePicker2').datepicker();
+});
+</script>
+<style>
+#fsearch {
+    text-align: center;	
+}
+</style>
+</head>
+<body>
+    <!-- Fixed navbar -->
+<nav class="navbar navbar-default navbar-static-top">
+    <div class="container">
+        <div class="navbar-header">
+<!--          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button> -->
+            <a class="navbar-brand" href="/"><b>Opulent</b> | Flights</a>
+        </div>
+          <!--  <li class="active"><a href="#">Home</a></li>
+            <li><a href="#about">About</a></li>
+            <li><a href="#contact">Contact</a></li>
+            <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dropdown <span class="caret"></span></a>
+              <ul class="dropdown-menu">
+                <li><a href="#">Action</a></li>
+                <li><a href="#">Another action</a></li>
+                <li><a href="#">Something else here</a></li>
+                <li role="separator" class="divider"></li>
+                <li class="dropdown-header">Nav header</li>
+                <li><a href="#">Separated link</a></li>
+                <li><a href="#">One more separated link</a></li>
+              </ul>
+            </li>
+          </ul> -->
+         <!-- <ul class="nav navbar-nav navbar-right">
+            <li><a href="../navbar/">Default</a></li>
+            <li><a href="../navbar-static-top/">Static top</a></li>
+            <li class="active"><a href="./">Fixed top <span class="sr-only">(current)</span></a></li>
+          </ul> -->
+    </div>
+</nav>
+<div style="background:transparent" class="jumbotron">
+    <div class="container-fluid">
+        <p class="text-center"><br><br><b>Opulent</b> | Flights<br></p>
+        <h2><small><p class="text-center">First Class Flights</p></small></h2>
+    </div>
+</div>
+
+{% with messages = get_flashed_messages() %}
+  {% if messages %}
+            <div class="container-fluid">
+                <p class="text-center"><b>{{ error }}</p>
+            </div>
+  {% endif %}
+{% endwith %}
+<div id=fsearch>
+<div class="container">
+<form class="form-inline" action="" method="post" name="login">
+    {{ form.hidden_tag() }}
+    <div class="form-group">
+        <input id="tags" type="text" class="form-control" name="iata" id="iata" placeholder="Airport(ATL SFO DFW)"/>
+    </div>
+    <div class="form-group">
+        <input type="text" class="form-control" name="maxusd" id="maxusd" placeholder="Maximum Fare USD"/>
+    </div>
+    <div class="form-group">
+        <input type="text" class="form-control" name="flyoutdate" id="datePicker" placeholder="Departure Date"/>
+    </div>
+    <button type="submit" class="btn btn-primary">Search</button>
+</form>
+</div>
+</div>
+</html>
+{% endblock %}

@@ -1,0 +1,112 @@
+<!-- extend from base layout -->
+{% extends "login.html" %}
+{% block content %}
+<html lang="en">
+<head>
+<link rel="stylesheet" type="text/css" href="http://74.207.226.211:80/fanstatic/bootstrap/css/bootstrap.css"/>
+<link rel="stylesheet" type="text/css" href="http://74.207.226.211:80/fanstatic/bootstrap-datepicker/css/datepicker.css"/>
+<script type="text/javascript" src="http://74.207.226.211:80/fanstatic/jquery/jquery.js"></script>
+<script type="text/javascript" src="http://74.207.226.211:80/fanstatic/bootstrap/js/bootstrap.js"></script>
+<script type="text/javascript" src="http://74.207.226.211:80/fanstatic/bootstrap-datepicker/js/bootstrap-datepicker.js"></script>
+</head>
+<style>
+body { 
+    padding-top: 65px; 
+}
+</style>
+<body>
+    <!-- Fixed navbar -->
+    <nav class="navbar navbar-default navbar-fixed-top">
+      <div class="container">
+        <div class="navbar-header">
+<!--          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button> -->
+          <a class="navbar-brand" href="/"><b>Opulent</b> | Flights</a>
+        </div>
+        <div id="navbar" class="navbar-collapse collapse">
+          <ul class="nav navbar-nav">
+          <!--  <li class="active"><a href="#">Home</a></li>
+            <li><a href="#about">About</a></li>
+            <li><a href="#contact">Contact</a></li>
+            <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dropdown <span class="caret"></span></a>
+              <ul class="dropdown-menu">
+                <li><a href="#">Action</a></li>
+                <li><a href="#">Another action</a></li>
+                <li><a href="#">Something else here</a></li>
+                <li role="separator" class="divider"></li>
+                <li class="dropdown-header">Nav header</li>
+                <li><a href="#">Separated link</a></li>
+                <li><a href="#">One more separated link</a></li>
+              </ul>
+            </li>
+          </ul> -->
+         <!-- <ul class="nav navbar-nav navbar-right">
+            <li><a href="../navbar/">Default</a></li>
+            <li><a href="../navbar-static-top/">Static top</a></li>
+            <li class="active"><a href="./">Fixed top <span class="sr-only">(current)</span></a></li>
+          </ul> -->
+        </div><!--/.nav-collapse -->
+      </div>
+    </nav>
+<!-- <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/socket.io/1.3.6/socket.io.min.js"></script>
+<script type="text/javascript" charset="utf-8">
+    var socket = io.connect('http://' + document.domain + ':' + location.port);
+    socket.on('connect', function() {
+        socket.emit('my event', {data: 'I\'m connected!'});
+    });
+</script> -->
+</body>
+<body>
+<div class="container">
+ <!-- <a class="btn btn-primary" data-toggle="collapse" href="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+    Link with href
+  </a>
+  <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+    Button with data-target
+  </button>
+</p>
+<div class="collapse" id="collapseExample">
+  <div class="card card-block">
+    Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident.
+  </div>
+</div> -->
+<p><b>One-way Flights From {{ origin }} to LGA</b></p>
+<p><b>drop was {{ form.region.data }} to LGA</b></p>
+</div>
+{% for y in flightindex[:30] %}
+    <div class="container">
+        <div class="panel panel-default">
+            <div class="panel-body">  
+                {% set p = dbqueryobj.filter(dbqpxflightdata.flightid == y).limit(30).all() %}
+                <!-- <a data-toggle="collapse" href="#{{ loop.index }}" aria-expanded="false" aria-controls="{{ loop.index }}">{{ p[0].price }} SEA - LGA</a> -->
+                <a class="btn btn-primary" data-toggle="collapse" href="#{{ loop.index }}" aria-expanded="false" aria-controls="{{ loop.index }}">{{ p[0].price }}</a>
+                <div class="collapse" id="{{ loop.index }}">
+                <div class="card card-block">
+                {% for z in dbqueryobj.filter(dbqpxflightdata.flightid == y).limit(30).all() %}
+                    <br>
+                    <div class="row">
+                    <div class="col-sm-3">Airline: {{ z.carrier }}</div>
+                    <div class="col-sm-3">Departing: {{ z.origin }}</div>
+                    <div class="col-sm-3">Departure: {{ z.departuret }}</div>
+                    <div class="col-sm-3">Leg: {{ loop.index }}</div>
+                    </div>
+                    <div class="row">
+                    <div class="col-sm-3">Opulence: {{ z.cabin }}</div>
+                    <div class="col-sm-3">Arriving: {{ z.destination }}</div>
+                    <div class="col-sm-3">Arrival: {{ z.arrivalt }}</div>
+                    <div class="col-sm-3">Flight Number: {{ z.qpxflight.name }}</div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+{% endfor %}
+{% endblock %}
+</body>

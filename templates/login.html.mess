@@ -1,0 +1,220 @@
+{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<link rel="stylesheet" type="text/css" href="http://35.160.146.121:8000/fanstatic/bootstrap/css/bootstrap.css"/>
+<link rel="stylesheet" type="text/css" href="http://35.160.146.121:8000/fanstatic/bootstrap-datepicker/css/datepicker.css"/>
+<script type="text/javascript" src="http://35.160.146.121:8000/fanstatic/jquery/jquery.js"></script>
+<script type="text/javascript" src="http://35.160.146.121:8000/fanstatic/bootstrap/js/bootstrap.js"></script>
+<script type="text/javascript" src="http://35.160.146.121:8000/fanstatic/bootstrap-datepicker/js/bootstrap-datepicker.js"></script>
+<script type="text/javascript">
+$(function () {
+    $('#datePicker').datepicker();
+    $('#datePicker2').datepicker();
+});
+</script>
+<script type="text/javascript">
+$(document).ready(function() {
+    $('#loginForm').formValidation({
+        framework: 'bootstrap',
+        icon: {
+            valid: 'glyphicon glyphicon-ok',
+            invalid: 'glyphicon glyphicon-remove',
+            validating: 'glyphicon glyphicon-refresh'
+        },
+        fields: {
+            iata: {
+                validators: {
+                    notEmpty: {
+                        message: 'The username is required'
+                    },
+                    stringLength: {
+                        min: 1,
+                        max: 3,
+                        message: 'The username must be more than 6 and less than 30 characters long'
+                    },
+                    regexp: {
+                        regexp: /^[a-zA-Z0-9_\.]+$/,
+                        message: 'The username can only consist of alphabetical, number, dot and underscore'
+                    }
+                }
+            },
+            minusd: {
+                validators: {
+                    notEmpty: {
+                        message: 'The password is required'
+                    }
+                }
+            }
+        }
+    });
+});
+</script>
+<style>
+#fsearch {
+    text-align: center;	
+}
+</style>
+<style type="text/css">
+#loginForm .has-error .control-label,
+#loginForm .has-error .help-block,
+#loginForm .has-error .form-control-feedback {
+    color: #f39c12;
+}
+
+#loginForm .has-success .control-label,
+#loginForm .has-success .help-block,
+#loginForm .has-success .form-control-feedback {
+    color: #18bc9c;
+}
+</style>
+</head>
+<body>
+    <!-- Fixed navbar -->
+<nav class="navbar navbar-default navbar-static-top">
+    <div class="container">
+        <div class="navbar-header">
+<!--          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button> -->
+            <a class="navbar-brand" href="#"><b>Opulent</b> | Air</a>
+        </div>
+          <!--  <li class="active"><a href="#">Home</a></li>
+            <li><a href="#about">About</a></li>
+            <li><a href="#contact">Contact</a></li>
+            <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dropdown <span class="caret"></span></a>
+              <ul class="dropdown-menu">
+                <li><a href="#">Action</a></li>
+                <li><a href="#">Another action</a></li>
+                <li><a href="#">Something else here</a></li>
+                <li role="separator" class="divider"></li>
+                <li class="dropdown-header">Nav header</li>
+                <li><a href="#">Separated link</a></li>
+                <li><a href="#">One more separated link</a></li>
+              </ul>
+            </li>
+          </ul> -->
+         <!-- <ul class="nav navbar-nav navbar-right">
+            <li><a href="../navbar/">Default</a></li>
+            <li><a href="../navbar-static-top/">Static top</a></li>
+            <li class="active"><a href="./">Fixed top <span class="sr-only">(current)</span></a></li>
+          </ul> -->
+    </div>
+</nav>
+{% with messages = get_flashed_messages() %}
+  {% if messages %}
+    <ul class=flashes>
+    {% for message in messages %}
+      <li>{{ message }}</li>
+    {% endfor %}
+    </ul>
+  {% endif %}
+{% endwith %}
+<div style="background:transparent" class="jumbotron">
+    <div class="container-fluid">
+            <p class="text-center"><br><br><b>Opulent</b> | Air<br></p>
+<h2><small><p class="text-center">First Class Flights</p></small></h2>
+<!--            <p class="text-center">First Class Only</p> -->
+        </div>
+    </div>
+<div id=fsearch>
+<div class="container">
+<form id="loginForm" class="form-inline" action="" method="post" name="login">
+    {{ form.hidden_tag() }}
+    <div class="form-group">
+        <input type="text" class="form-control" name="iata" id="iata" placeholder="Airport(ATL SFO DFW)"/>
+    </div>
+    <div class="form-group">
+        <input type="text" class="form-control" name="minusd" id="minusd" placeholder="Minimum Fare USD"/>
+    </div>
+    <div class="form-group">
+        <input type="text" class="form-control" name="maxusd" id="maxusd" placeholder="Maximum Fare USD"/>
+    </div>
+    <div class="form-group">
+        <input type="text" class="form-control" name="flyoutdate" id="datePicker" placeholder="Departure Date"/>
+    </div>
+    <button type="submit" class="btn btn-primary">Search</button>
+</form>
+</div>
+</div>
+</html>
+{% endblock %}
+<html>
+<style type="text/css">
+#loginForm .has-error .control-label,
+#loginForm .has-error .help-block,
+#loginForm .has-error .form-control-feedback {
+    color: #f39c12;
+}
+
+#loginForm .has-success .control-label,
+#loginForm .has-success .help-block,
+#loginForm .has-success .form-control-feedback {
+    color: #18bc9c;
+}
+</style>
+
+<form id="loginForm" method="post" class="form-horizontal">
+    <div class="form-group">
+        <label class="col-xs-3 control-label">Username</label>
+        <div class="col-xs-5">
+            <input type="text" class="form-control" name="username" />
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label class="col-xs-3 control-label">Password</label>
+        <div class="col-xs-5">
+            <input type="password" class="form-control" name="password" />
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="col-xs-9 col-xs-offset-3">
+            <button type="submit" class="btn btn-primary">Sign in</button>
+        </div>
+    </div>
+</form>
+
+<script>
+$(document).ready(function() {
+    $('#loginForm').formValidation({
+        framework: 'bootstrap',
+        icon: {
+            valid: 'glyphicon glyphicon-ok',
+            invalid: 'glyphicon glyphicon-remove',
+            validating: 'glyphicon glyphicon-refresh'
+        },
+        fields: {
+            username: {
+                validators: {
+                    notEmpty: {
+                        message: 'The username is required'
+                    },
+                    stringLength: {
+                        min: 6,
+                        max: 30,
+                        message: 'The username must be more than 6 and less than 30 characters long'
+                    },
+                    regexp: {
+                        regexp: /^[a-zA-Z0-9_\.]+$/,
+                        message: 'The username can only consist of alphabetical, number, dot and underscore'
+                    }
+                }
+            },
+            password: {
+                validators: {
+                    notEmpty: {
+                        message: 'The password is required'
+                    }
+                }
+            }
+        }
+    });
+});
+</script>
+</html>

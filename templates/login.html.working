@@ -1,0 +1,43 @@
+{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<link rel="stylesheet" type="text/css" href="http://35.160.146.121:8000/fanstatic/bootstrap/css/bootstrap.css"/>
+<link rel="stylesheet" type="text/css" href="http://35.160.146.121:8000/fanstatic/bootstrap-datepicker/css/datepicker.css"/>
+<script type="text/javascript" src="http://35.160.146.121:8000/fanstatic/jquery/jquery.js"></script>
+<script type="text/javascript" src="http://35.160.146.121:8000/fanstatic/bootstrap/js/bootstrap.js"></script>
+<script type="text/javascript" src="http://35.160.146.121:8000/fanstatic/bootstrap-datepicker/js/bootstrap-datepicker.js"></script>
+<script type="text/javascript">
+$(function () {
+    $('#datePicker').datepicker();
+    $('#datePicker2').datepicker();
+});
+</script>
+</head>
+<div class="container">
+<h1>Fly</h1>
+{% for x in f %}
+    Flight ID: {{ x }}
+{% endfor %}
+<form class="form-inline" action="" method="post" name="login">
+    {{ form.hidden_tag() }}
+    <div class="form-group">
+        <input type="text" class="form-control" name="iata" id="iata" placeholder="Airport(ATL SFO DFW)"/>
+    </div>
+    <div class="form-group">
+        <input type="text" class="form-control" name="minusd" id="minusd" placeholder="Minimum Fare USD"/>
+    </div>
+    <div class="form-group">
+        <input type="text" class="form-control" name="maxusd" id="maxusd" placeholder="Maximum Fare USD"/>
+    </div>
+    <div class="form-group">
+        <input type="text" class="form-control" name="flyoutdate" id="datePicker" placeholder="Departure Date"/>
+    </div>
+    <div class="form-group">
+        <input type="text" class="form-control" name="flyindate" id="datePicker2" placeholder="Return Date"/>
+    </div>
+    <button type="submit" class="btn btn-primary">Get Lifted</button>
+</form>
+</div>
+</html>
+{% endblock %}
